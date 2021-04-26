@@ -8,6 +8,12 @@
         <p>Welcome to the home page.</p>
         
         {% if user.is_authenticated %}
+        
+        <p>Here we give some info on the user previous scores</p>
+        
+        <p>Start a new quiz from <a href = "">here</a>.</p>
+                
+        
          <a href= "{% url 'users:logout' %}">Log out</a>
         
         {% else %}
