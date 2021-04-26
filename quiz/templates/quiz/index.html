@@ -7,5 +7,14 @@
         <h2>Quiz project</h2>        
         <p>Welcome to the home page.</p>
         
+        {% if user.is_authenticated %}
+         <a href= "{% url 'users:logout' %}">Log out</a>
+        
+        {% else %}
+        Please <a href= "{% url 'users:login' %}">log in</a>
+        
+        {% endif %}
+        
+        
     </body>
 </html>
