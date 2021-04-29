@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>Quiz project</title>
+    </head>
+
+    <body>
+        <h2>Quiz project</h2>        
+        <p>Here are your questions.</p>
+        
+        <ul>
+        {% for pair in pairs %}
+        <li>
+        
+            {% for key, value in pair.items %}
+            
+                {% if key == "question" %}
+                    {{ value }}
+                    <br>
+                {% else %}
+                
+                    <ul>
+                    {% for answer in value %}
+                        <li>
+                        {{ answer }}
+                        </li>
+                    {% endfor %}
+                    
+                    </ul>
+                                
+                {% endif %}
+                
+            {% endfor %}
+            
+        </li>
+        
+        {% endfor %}
+        </ul>
+                
+    </body>
+</html>

@@ -11,7 +11,11 @@
         
         <p>Here we give some info on the user previous scores</p>
         
-        <p>Start a new quiz from <a href = "">here</a>.</p>
+        <p>LORENZO: Start a new quiz from <a href = "{% url 'quiz:attempt' 1 %}">here</a>.</p>
+
+        <p>LUCA: Start a new quiz from <a href = "{% url 'quiz:attempt' 2 %}">here</a>.</p>
+
+        <p>TOMMASO: Start a new quiz from <a href = "{% url 'quiz:attempt' 3 %}">here</a>.</p>
                 
         
          <a href= "{% url 'users:logout' %}">Log out</a>
