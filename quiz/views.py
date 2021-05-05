@@ -1,6 +1,10 @@
 from django.shortcuts import render
 
+from django.contrib.auth.models import User
+
 from .models import Question, Answer, Quiz, Attempt
+
+from datetime import datetime # for the method now()
 
 import random
 
@@ -54,7 +58,7 @@ def check_attempt(request):
     
     score = 0
     
-    # create the quiz object, both in Python and in the DB (it is not formally in the db till the save() is executed, 
+    # create the Quiz object, both in Python and in the DB (it is not formally in the db until the save() is executed, 
     # it only gets an ID at this stage )
     quiz = Quiz.objects.create()
     
@@ -68,18 +72,36 @@ def check_attempt(request):
         if answerToQuestionObj.correct == True:
             score += 1
         
-        quest = answerToQuestion.question
+        quest = answerToQuestionObj.question
         
         # add the Question object corresponding to this Answer to the list of questions of the Quiz object
+        # note that the list corresponding to a ManyToMany relationship uses "add" rather than "append"
         quiz.questions.add(quest)
         
-    # store the quiz object in the DB
+    # here we actually store the quiz object in the DB
     quiz.save()
 
-    # create the quiz object, both in Python and in the DB
-    attempt = Attempt.objects.create()
-    # set the created Quiz object as the quiz that has been attempted in this Attempt
-    attempt.quiz = quiz
+    # create the quiz object, both in Python and in the DB.
+    # When creating the attempt, we need to set all the necessary attributes for objects of class Attempt (see models.py)
+    # In particular, the Quiz and the User (both foreign keys) have to be set alredy when constructing the Attempt, since they are required
+    # the other attribute we can set later    
+    attempt = Attempt.objects.create(
+        quiz = quiz,
+        user = request.user,
+        attempt_time = datetime.now(),
+        score = score
+        )
+    # In the above code, we:
+    # - Set the created Quiz object as the quiz that has been attempted in this Attempt - it is a foreign key, so I am using the Quiz object
+    # - Set the current User as the user who attempted in this Attempt - it is a foreign key, so I am using the User object
+    # note that the information on the current User is also stored in the request
+    # also note that the User type (the one from Django) has to be imported (see above)
+    # - Set the current date and time as the one in which the Attempt was attempted 
+    # to read the current date and time, we used the now() method from the class datetime, which has to be imported (see above)
+    # - Set the computed score as the one obtained in this Attempt
+    
+    # Once all attributes have been set, we can finally store the Attempt in the db
+    attempt.save()    
     
     context = {"answers" : answers, "score" : score}
     
