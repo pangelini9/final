@@ -7,34 +7,59 @@
         <h2>Quiz project</h2>        
         <p>Here are your questions.</p>
         
-        <ul>
-        {% for pair in pairs %}
-        <li>
+        <form action = "---" method = "POST">
+	        <ul>
+	            <li>
+	            	What is the capital of Italy?
+	            	<br>
+	                <input type="radio"  name="quest1" value="3">
+	                <label>Milan</label><br>
+
+	                <input type="radio" name="quest1" value="2">
+	                <label>Naples</label><br>
+
+	                <input type="radio" name="quest1" value="1">
+	                <label>Rome</label><br>
+
+	                <input type="radio" name="quest1" value="4">
+	                <label>Florence</label><br>
+	            </li>
+
+	            <li>
+	            	What is the capital of France?
+	            	<br>
+	                <input type="radio" name="quest2" value="5">
+	                <label>Paris</label><br>
+
+	                <input type="radio" name="quest2" value="8">
+	                <label>Marseille</label><br>
+
+	                <input type="radio" name="quest2" value="7">
+	                <label>Bordeaux</label><br>
+
+	                <input type="radio" name="quest2" value="6">
+	                <label>Nice</label><br>
+                </li>
+
+	                
+                <li>
+	                What is the capital of Spain?
+	            	<br>
+	                <input type="radio" name="quest3" value="9">
+	                <label>Madrid</label><br>
+
+	                <input type="radio" name="quest3" value="11">
+	                <label>Seville</label><br>
+
+	                <input type="radio" name="quest3" value="12">
+	                <label>Valencia</label><br>
+
+	                <input type="radio" name="quest3" value="10">
+	                <label>Barcelona</label><br>
+	            </li>
+	        </ul>
+            {% csrf_token %}  <!-- For security reasons, protects server --> 
+            <button name="submit">Submit</button> <!-- Button to submit the data -->
+        </form>                   
         
-            {% for key, value in pair.items %}
-            
-                {% if key == "question" %}
-                    {{ value }}
-                    <br>
-                {% else %}
-                
-                    <ul>
-                    {% for answer in value %}
-                        <li>
-                        {{ answer }}
-                        </li>
-                    {% endfor %}
-                    
-                    </ul>
-                                
-                {% endif %}
-                
-            {% endfor %}
-            
-        </li>
-        
-        {% endfor %}
-        </ul>
-                
     </body>
-</html>
