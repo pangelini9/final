@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>Quiz project</title>
+    </head>
+
+    <body>
+        <h2>Quiz project</h2>        
+        <p>Here are your questions.</p>
+   
+   
+        <form action = "{% url 'quiz:check_attempt' %}" method = "post">   
+             
+            <ul>
+            {% for pair in pairs %}
+            <li>
+            
+                {% for key, value in pair.items %}
+                
+                    {% if key == "question" %}
+                        {{ value }}
+                        <br>
+                    {% else %}
+                    
+                        {% for answer in value %}
+    
+    	                <input type="radio"  name="quest{{ forloop.parentloop.parentloop.counter }}" value="{{ answer.id }}">
+    	                <label>{{ answer }} -- quest{{ forloop.parentloop.parentloop.counter }} -- ID: {{ answer.id }}</label><br>                        
+    
+                        {% endfor %}                  
+                                    
+                    {% endif %}
+                    
+                {% endfor %}
+                
+            </li>
+            
+            {% endfor %}
+            </ul>
+        
+            {% csrf_token %}  <!-- For security reasons, protects server --> 
+            <button name="submit">Submit</button> <!-- Button to submit the data -->
+
+        </form>
+        
+    </body>
+</html>

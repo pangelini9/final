@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>Quiz project</title>
+    </head>
+
+    <body>
+        <h2>Quiz project</h2>        
+        <p>Welcome to the check attempt page.</p>
+        
+        
+        {% for answerObj in answers %}
+        
+            <p> The id of the answer to the first question is {{ answerObj.id }} </p>
+    
+            <p> The text of the answer to the first question is {{ answerObj.text }} </p>
+            
+            {% if answerObj.correct == True %}
+            
+            <p>This answer is correct</p>
+            
+            {% else %}
+            
+            <p>This answer is not correct</p>
+            
+            {% endif %}
+            
+        {% endfor %}
+        
+        <p> The score of the user for this quiz is {{ score }} </p>
+    
+        
+    </body>
+</html>
